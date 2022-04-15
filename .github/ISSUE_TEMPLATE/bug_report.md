@@ -28,4 +28,7 @@ If applicable, add screenshots to help explain your problem.
  - Version [e.g. 18]
 
 **Package version (please complete the following information):**
- -
+ - [e.g. 1.33.0]
+
+**Additional context**
+Add any other context about the problem here.
