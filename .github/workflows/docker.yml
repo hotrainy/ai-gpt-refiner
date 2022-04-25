@@ -28,4 +28,16 @@ jobs:
         uses: docker/setup-qemu-action@v2
 
       - name: Set up Docker Buildx
-        uses: docker/
+        uses: docker/setup-buildx-action@v2
+
+      - name: Docker metadata(ghcr)
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/node-chatgpt-api
+          tags: |
+            type=raw,value=latest
+            type=sha,format=long
+
+      - name: Build and push Docker image(ghcr)
+        uses: docker/build-pus
