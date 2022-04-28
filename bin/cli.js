@@ -163,3 +163,159 @@ async function onMessage(message) {
             break;
     }
     let reply = '';
+    const spinnerPrefix = `${aiLabel} is typing...`;
+    const spinner = ora(spinnerPrefix);
+    spinner.prefixText = '\n   ';
+    spinner.start();
+    try {
+        if (clientToUse === 'bing' && !conversationData.jailbreakConversationId) {
+            // activate jailbreak mode for Bing
+            conversationData.jailbreakConversationId = true;
+        }
+        const response = await client.sendMessage(message, {
+            ...conversationData,
+            onProgress: (token) => {
+                reply += token;
+                const output = tryBoxen(`${reply.trim()}█`, {
+                    title: aiLabel, padding: 0.7, margin: 1, dimBorder: true,
+                });
+                spinner.text = `${spinnerPrefix}\n${output}`;
+            },
+        });
+        let responseText;
+        switch (clientToUse) {
+            case 'bing':
+                responseText = response.details.adaptiveCards?.[0]?.body?.[0]?.text?.trim() || response.response;
+                break;
+            default:
+                responseText = response.response;
+                break;
+        }
+        clipboard.write(responseText).then(() => {}).catch(() => {});
+        spinner.stop();
+        switch (clientToUse) {
+            case 'bing':
+                conversationData = {
+                    parentMessageId: response.messageId,
+                    jailbreakConversationId: response.jailbreakConversationId,
+                    // conversationId: response.conversationId,
+                    // conversationSignature: response.conversationSignature,
+                    // clientId: response.clientId,
+                    // invocationId: response.invocationId,
+                };
+                break;
+            default:
+                conversationData = {
+                    conversationId: response.conversationId,
+                    parentMessageId: response.messageId,
+                };
+                break;
+        }
+        await client.conversationsCache.set('lastConversation', conversationData);
+        const output = tryBoxen(responseText, {
+            title: aiLabel, padding: 0.7, margin: 1, dimBorder: true,
+        });
+        console.log(output);
+    } catch (error) {
+        spinner.stop();
+        logError(error?.json?.error?.message || error.body || error || 'Unknown error');
+    }
+    return conversation();
+}
+
+async function useEditor() {
+    let { message } = await inquirer.prompt([
+        {
+            type: 'editor',
+            name: 'message',
+            message: 'Write a message:',
+            waitUserInput: false,
+        },
+    ]);
+    message = message.trim();
+    if (!message) {
+        return conversation();
+    }
+    console.log(message);
+    return onMessage(message);
+}
+
+async function resumeConversation() {
+    conversationData = (await client.conversationsCache.get('lastConversation')) || {};
+    if (conversationData.conversationId) {
+        logSuccess(`Resumed conversation ${conversationData.conversationId}.`);
+    } else {
+        logWarning('No conversation to resume.');
+    }
+    return conversation();
+}
+
+async function newConversation() {
+    conversationData = {};
+    logSuccess('Started new conversation.');
+    return conversation();
+}
+
+async function deleteAllConversations() {
+    if (clientToUse !== 'chatgpt') {
+        logWarning('Deleting all conversations is only supported for ChatGPT client.');
+        return conversation();
+    }
+    await client.conversationsCache.clear();
+    logSuccess('Deleted all conversations.');
+    return conversation();
+}
+
+async function copyConversation() {
+    if (clientToUse !== 'chatgpt') {
+        logWarning('Copying conversations is only supported for ChatGPT client.');
+        return conversation();
+    }
+    if (!conversationData.conversationId) {
+        logWarning('No conversation to copy.');
+        return conversation();
+    }
+    const { messages } = await client.conversationsCache.get(conversationData.conversationId);
+    // get the last message ID
+    const lastMessageId = messages[messages.length - 1].id;
+    const orderedMessages = ChatGPTClient.getMessagesForConversation(messages, lastMessageId);
+    const conversationString = orderedMessages.map(message => `#### ${message.role}:\n${message.message}`).join('\n\n');
+    try {
+        await clipboard.write(`${conversationString}\n\n----\nMade with ChatGPT CLI: <https://github.com/waylaidwanderer/node-chatgpt-api>`);
+        logSuccess('Copied conversation to clipboard.');
+    } catch (error) {
+        logError(error?.message || error);
+    }
+    return conversation();
+}
+
+function logError(message) {
+    console.log(tryBoxen(message, {
+        title: 'Error', padding: 0.7, margin: 1, borderColor: 'red',
+    }));
+}
+
+function logSuccess(message) {
+    console.log(tryBoxen(message, {
+        title: 'Success', padding: 0.7, margin: 1, borderColor: 'green',
+    }));
+}
+
+function logWarning(message) {
+    console.log(tryBoxen(message, {
+        title: 'Warning', padding: 0.7, margin: 1, borderColor: 'yellow',
+    }));
+}
+
+/**
+ * Boxen can throw an error if the input is malformed, so this function wraps it in a try/catch.
+ * @param {string} input
+ * @param {*} options
+ */
+function tryBoxen(input, options) {
+    try {
+        return boxen(input, options);
+    } catch {
+        return input;
+    }
+}
