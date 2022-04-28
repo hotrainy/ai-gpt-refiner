@@ -26,4 +26,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          reg
+          registry-url: 'https://registry.npmjs.org'
+      - run: NODE_ENV=production npm ci
+      - run: npm run build --if-present
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
