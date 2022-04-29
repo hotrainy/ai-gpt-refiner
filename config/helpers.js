@@ -21,4 +21,20 @@ export const askQuestion = (query) => {
         output: process.stdout,
     });
 
-    return new Promise(reso
+    return new Promise(resolve => rl.question(`\x1b[36m${query}\n> \x1b[0m`, (ans) => {
+        rl.close();
+        resolve(ans);
+    }));
+};
+
+export function isDockerRunning() {
+    try {
+        execSync('docker info');
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+export function deleteNodeModules(dir) {
+    const nodeModulesPath =
