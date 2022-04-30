@@ -37,4 +37,17 @@ export function isDockerRunning() {
 }
 
 export function deleteNodeModules(dir) {
-    const nodeModulesPath =
+    const nodeModulesPath = path.join(dir, 'node_modules');
+    if (fs.existsSync(nodeModulesPath)) {
+        console.purple(`Deleting node_modules in ${dir}`);
+        fs.rmSync(nodeModulesPath, { recursive: true });
+    }
+}
+
+export const silentExit = (code = 0) => {
+    console.log = () => {};
+    process.exit(code);
+};
+
+// Set the console colours
+console.orange = msg 
