@@ -34,4 +34,11 @@ const directories = [rootDir];
 
     // Run npm cache clean --force
     console.purple('Cleaning npm cache...');
-    execSync('npm cache clean --force', { stdio: 'inherit' }
+    execSync('npm cache clean --force', { stdio: 'inherit' });
+
+    // Install dependencies
+    console.purple('Installing dependencies...');
+    execSync('npm ci', { stdio: 'inherit' });
+
+    console.green('node-gpt-api is now up to date!');
+})();
