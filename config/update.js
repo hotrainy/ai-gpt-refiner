@@ -25,4 +25,13 @@ const directories = [rootDir];
         execSync('git checkout main', { stdio: 'inherit' });
 
         // Git pull origin main
-        console.purple('Pulling the lates
+        console.purple('Pulling the latest code from main...');
+        execSync('git pull origin main', { stdio: 'inherit' });
+    }
+
+    // Delete all node_modules
+    directories.forEach(deleteNodeModules);
+
+    // Run npm cache clean --force
+    console.purple('Cleaning npm cache...');
+    execSync('npm cache clean --force', { stdio: 'inherit' }
