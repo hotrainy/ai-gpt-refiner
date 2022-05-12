@@ -17,4 +17,12 @@ const directories = [rootDir];
     const { skipGit } = config;
     if (!skipGit) {
     // Fetch latest repo
-        console.p
+        console.purple('Fetching the latest repo...');
+        execSync('git fetch origin', { stdio: 'inherit' });
+
+        // Switch to main branch
+        console.purple('Switching to main branch...');
+        execSync('git checkout main', { stdio: 'inherit' });
+
+        // Git pull origin main
+        console.purple('Pulling the lates
