@@ -8,4 +8,16 @@ const opts = {
     },
     body: JSON.stringify({
         message: 'Hello',
-        // Set strea
+        // Set stream to true to receive each token as it is generated.
+        stream: true,
+    }),
+};
+
+try {
+    let reply = '';
+    const controller = new AbortController();
+    await fetchEventSource('http://localhost:3001/conversation', {
+        ...opts,
+        signal: controller.signal,
+        onopen(response) {
+            if (response.status === 200)
