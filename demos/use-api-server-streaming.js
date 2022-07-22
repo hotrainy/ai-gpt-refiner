@@ -40,4 +40,14 @@ try {
             }
             if (message.event === 'result') {
                 const result = JSON.parse(message.data);
-       
+                console.log(result);
+                return;
+            }
+            console.log(message);
+            reply += JSON.parse(message.data);
+        },
+    });
+    console.log(reply);
+} catch (err) {
+    console.log('ERROR', err);
+}
