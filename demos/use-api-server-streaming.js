@@ -20,4 +20,16 @@ try {
         ...opts,
         signal: controller.signal,
         onopen(response) {
-            if (response.status === 200)
+            if (response.status === 200) {
+                return;
+            }
+            throw new Error(`Failed to send message. HTTP ${response.status} - ${response.statusText}`);
+        },
+        onclose() {
+            throw new Error('Failed to send message. Server closed the connection unexpectedly.');
+        },
+        onerror(err) {
+            throw err;
+        },
+        onmessage(message) {
+    
