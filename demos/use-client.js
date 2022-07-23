@@ -46,4 +46,10 @@ const chatGptClient = new ChatGPTClient('OPENAI_API_KEY', clientOptions, cacheOp
 
 let response;
 response = await chatGptClient.sendMessage('Hello!');
-console.log(response); // { response: 'Hello! How can I assist you today?', conversationId: '.
+console.log(response); // { response: 'Hello! How can I assist you today?', conversationId: '...', messageId: '...' }
+
+response = await chatGptClient.sendMessage('Write a short poem about cats.', { conversationId: response.conversationId, parentMessageId: response.messageId });
+console.log(response.response); // Soft and sleek, with eyes that gleam,\nCats are creatures of grace supreme.\n...
+console.log();
+
+response = await chatGptCl
