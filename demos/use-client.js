@@ -64,4 +64,10 @@ console.log(response.response); // Doux et élégant, avec des yeux qui brillent
 
 response = await chatGptClient.sendMessage('Repeat my 2nd message verbatim.', {
     conversationId: response.conversationId,
-    par
+    parentMessageId: response.messageId,
+    // If you want streamed responses, you can set the `onProgress` callback to receive the response as it's generated.
+    // You will receive one token at a time, so you will need to concatenate them yourself.
+    onProgress: token => process.stdout.write(token),
+});
+console.log();
+console.log(response.respo
