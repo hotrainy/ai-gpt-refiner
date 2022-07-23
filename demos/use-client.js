@@ -31,4 +31,11 @@ const clientOptions = {
     // userLabel: 'User',
     // (Optional) Set a custom name for ChatGPT
     // chatGptLabel: 'ChatGPT',
-    // (Optional) Set to 
+    // (Optional) Set to true to enable `console.debug()` logging
+    debug: false,
+};
+
+const cacheOptions = {
+    // Options for the Keyv cache, see https://www.npmjs.com/package/keyv
+    // This is used for storing conversations, and supports additional drivers (conversations are stored in memory by default)
+    // For example, to use a JSON file (`npm i keyv-file`) as a da
