@@ -24,4 +24,11 @@ const clientOptions = {
     // maxContextTokens: 4097,
     // (Optional) You might want to lower this to save money if using a paid model like `text-davinci-003`.
     // Earlier messages will be dropped until the prompt is within the limit.
-    //
+    // maxPromptTokens: 3097,
+    // (Optional) Set custom instructions instead of "You are ChatGPT...".
+    // promptPrefix: 'You are Bob, a cowboy in Western times...',
+    // (Optional) Set a custom name for the user
+    // userLabel: 'User',
+    // (Optional) Set a custom name for ChatGPT
+    // chatGptLabel: 'ChatGPT',
+    // (Optional) Set to 
