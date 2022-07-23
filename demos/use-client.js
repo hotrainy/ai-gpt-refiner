@@ -52,4 +52,9 @@ response = await chatGptClient.sendMessage('Write a short poem about cats.', { c
 console.log(response.response); // Soft and sleek, with eyes that gleam,\nCats are creatures of grace supreme.\n...
 console.log();
 
-response = await chatGptCl
+response = await chatGptClient.sendMessage('Now write it in French.', {
+    conversationId: response.conversationId,
+    parentMessageId: response.messageId,
+    // If you want streamed responses, you can set the `onProgress` callback to receive the response as it's generated.
+    // You will receive one token at a time, so you will need to concatenate them yourself.
+   
