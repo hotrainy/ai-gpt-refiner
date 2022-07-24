@@ -7,3 +7,13 @@ import { HttpsProxyAgent } from 'https-proxy-agent';
 import { BingImageCreator } from '@timefox/bic-sydney';
 
 /**
+ * https://stackoverflow.com/a/58326357
+ * @param {number} size
+ */
+const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
+
+export default class BingAIClient {
+    constructor(options) {
+        if (options.keyv) {
+            if (!options.keyv.namespace) {
+                consol
