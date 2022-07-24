@@ -22,4 +22,16 @@ export default class BingAIClient {
         } else {
             const cacheOptions = options.cache || {};
             cacheOptions.namespace = cacheOptions.namespace || 'bing';
-     
+            this.conversationsCache = new Keyv(cacheOptions);
+        }
+
+        this.setOptions(options);
+    }
+
+    setOptions(options) {
+        // don't allow overriding cache options for consistency with other clients
+        delete options.cache;
+        if (this.options && !this.options.replaceOptions) {
+            this.options = {
+                ...this.options,
+           
