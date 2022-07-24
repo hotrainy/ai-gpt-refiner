@@ -70,4 +70,4 @@ response = await chatGptClient.sendMessage('Repeat my 2nd message verbatim.', {
     onProgress: token => process.stdout.write(token),
 });
 console.log();
-console.log(response.respo
+console.log(response.response); // "Write a short poem about cats."
