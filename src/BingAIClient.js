@@ -42,4 +42,16 @@ export default class BingAIClient {
                 host: options.host || 'https://www.bing.com',
                 xForwardedFor: this.constructor.getValidIPv4(options.xForwardedFor),
                 features: {
-                    genImage: options?.features?.genImage 
+                    genImage: options?.features?.genImage || false,
+                },
+            };
+        }
+        this.debug = this.options.debug;
+        if (this.options.features.genImage) {
+            this.bic = new BingImageCreator(this.options);
+        }
+    }
+
+    static getValidIPv4(ip) {
+        const match = !ip
+            || ip.match(/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-
