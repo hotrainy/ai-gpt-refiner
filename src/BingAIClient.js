@@ -34,4 +34,12 @@ export default class BingAIClient {
         if (this.options && !this.options.replaceOptions) {
             this.options = {
                 ...this.options,
-           
+                ...options,
+            };
+        } else {
+            this.options = {
+                ...options,
+                host: options.host || 'https://www.bing.com',
+                xForwardedFor: this.constructor.getValidIPv4(options.xForwardedFor),
+                features: {
+                    genImage: options?.features?.genImage 
