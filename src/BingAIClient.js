@@ -60,4 +60,13 @@ export default class BingAIClient {
                 const mask = parseInt(match[5], 10);
                 let [a, b, c, d] = ip.split('.').map(x => parseInt(x, 10));
                 // eslint-disable-next-line no-bitwise
-                const max = (1 << (
+                const max = (1 << (32 - mask)) - 1;
+                const rand = Math.floor(Math.random() * max);
+                d += rand;
+                c += Math.floor(d / 256);
+                d %= 256;
+                b += Math.floor(c / 256);
+                c %= 256;
+                a += Math.floor(b / 256);
+                b %= 256;
+                return `${a}.${b}.${c
