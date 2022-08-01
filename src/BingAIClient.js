@@ -54,4 +54,10 @@ export default class BingAIClient {
 
     static getValidIPv4(ip) {
         const match = !ip
-            || ip.match(/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-
+            || ip.match(/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/([0-9]|[1-2][0-9]|3[0-2]))?$/);
+        if (match) {
+            if (match[5]) {
+                const mask = parseInt(match[5], 10);
+                let [a, b, c, d] = ip.split('.').map(x => parseInt(x, 10));
+                // eslint-disable-next-line no-bitwise
+                const max = (1 << (
