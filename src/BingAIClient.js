@@ -69,4 +69,16 @@ export default class BingAIClient {
                 c %= 256;
                 a += Math.floor(b / 256);
                 b %= 256;
-                return `${a}.${b}.${c
+                return `${a}.${b}.${c}.${d}`;
+            }
+            return ip;
+        }
+        return undefined;
+    }
+
+    async createNewConversation() {
+        this.headers = {
+            accept: 'application/json',
+            'accept-language': 'en-US,en;q=0.9',
+            'content-type': 'application/json',
+            'sec-ch-ua': '"Microsoft Edge";v="113", "Ch
