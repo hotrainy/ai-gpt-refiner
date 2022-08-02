@@ -102,4 +102,10 @@ export default class BingAIClient {
             Referer: 'https://www.bing.com/search?q=Bing+AI&showconv=1',
             'Referrer-Policy': 'origin-when-cross-origin',
             // Workaround for request being blocked due to geolocation
-            // 'x-forward
+            // 'x-forwarded-for': '1.1.1.1', // 1.1.1.1 seems to no longer work.
+            ...(this.options.xForwardedFor ? { 'x-forwarded-for': this.options.xForwardedFor } : {}),
+        };
+        // filter undefined values
+        this.headers = Object.fromEntries(Object.entries(this.headers).filter(([, value]) => value !== undefined));
+
+   
