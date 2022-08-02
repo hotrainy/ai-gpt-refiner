@@ -97,4 +97,9 @@ export default class BingAIClient {
             'sec-ms-gec-version': '1-115.0.1866.1',
             'x-ms-client-request-id': crypto.randomUUID(),
             'x-ms-useragent': 'azsdk-js-api-client-factory/1.0.0-beta.1 core-rest-pipeline/1.10.0 OS/Win32',
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.50',
+            cookie: this.options.cookies || (this.options.userToken ? `_U=${this.options.userToken}` : undefined),
+            Referer: 'https://www.bing.com/search?q=Bing+AI&showconv=1',
+            'Referrer-Policy': 'origin-when-cross-origin',
+            // Workaround for request being blocked due to geolocation
+            // 'x-forward
