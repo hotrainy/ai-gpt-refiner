@@ -81,4 +81,9 @@ export default class BingAIClient {
             accept: 'application/json',
             'accept-language': 'en-US,en;q=0.9',
             'content-type': 'application/json',
-            'sec-ch-ua': '"Microsoft Edge";v="113", "Ch
+            'sec-ch-ua': '"Microsoft Edge";v="113", "Chromium";v="113", "Not-A.Brand";v="24"',
+            'sec-ch-ua-arch': '"x86"',
+            'sec-ch-ua-bitness': '"64"',
+            'sec-ch-ua-full-version': '"113.0.1774.50"',
+            'sec-ch-ua-full-version-list': '"Microsoft Edge";v="113.0.1774.50", "Chromium";v="113.0.5672.127", "Not-A.Brand";v="24.0.0.0"',
+            'sec-ch
