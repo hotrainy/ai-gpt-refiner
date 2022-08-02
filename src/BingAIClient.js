@@ -108,4 +108,12 @@ export default class BingAIClient {
         // filter undefined values
         this.headers = Object.fromEntries(Object.entries(this.headers).filter(([, value]) => value !== undefined));
 
-   
+        const fetchOptions = {
+            headers: this.headers,
+        };
+        if (this.options.proxy) {
+            fetchOptions.dispatcher = new ProxyAgent(this.options.proxy);
+        } else {
+            fetchOptions.dispatcher = new Agent({ connect: { timeout: 20_000 } });
+        }
+        const response = await fetch(`${this.options.host}/tu
