@@ -86,4 +86,11 @@ export default class BingAIClient {
             'sec-ch-ua-bitness': '"64"',
             'sec-ch-ua-full-version': '"113.0.1774.50"',
             'sec-ch-ua-full-version-list': '"Microsoft Edge";v="113.0.1774.50", "Chromium";v="113.0.5672.127", "Not-A.Brand";v="24.0.0.0"',
-            'sec-ch
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-model': '""',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-ch-ua-platform-version': '"15.0.0"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-origin',
+            'sec-ms-gec': genRanHex(64).toUpperCase(),
