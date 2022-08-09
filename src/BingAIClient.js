@@ -123,4 +123,12 @@ export default class BingAIClient {
             res.encryptedConversationSignature = response.headers.get('x-sydney-encryptedconversationsignature') ?? null;
             return res;
         } catch (err) {
-            throw ne
+            throw new Error(`/turing/conversation/create: failed to parse response body.\n${body}`);
+        }
+    }
+
+    async createWebSocketConnection(encryptedConversationSignature) {
+        return new Promise((resolve, reject) => {
+            let agent;
+            if (this.options.proxy) {
+                agent = new HttpsProxyAgent(this.optio
