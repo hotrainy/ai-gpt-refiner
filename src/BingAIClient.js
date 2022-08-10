@@ -131,4 +131,13 @@ export default class BingAIClient {
         return new Promise((resolve, reject) => {
             let agent;
             if (this.options.proxy) {
-                agent = new HttpsProxyAgent(this.optio
+                agent = new HttpsProxyAgent(this.options.proxy);
+            }
+
+            const ws = new WebSocket(`wss://sydney.bing.com/sydney/ChatHub?sec_access_token=${encodeURIComponent(encryptedConversationSignature)}`, { agent, headers: this.headers });
+
+            ws.on('error', err => reject(err));
+
+            ws.on('open', () => {
+                if (this.debug) {
+                    
