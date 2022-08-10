@@ -160,4 +160,12 @@ export default class BingAIClient {
                         return object;
                     }
                 }).filter(message => message);
-                if (messages.length ==
+                if (messages.length === 0) {
+                    return;
+                }
+                if (typeof messages[0] === 'object' && Object.keys(messages[0]).length === 0) {
+                    if (this.debug) {
+                        console.debug('handshake established');
+                    }
+                    // ping
+                    ws.bingPingInterval = setInterval(
