@@ -140,4 +140,16 @@ export default class BingAIClient {
 
             ws.on('open', () => {
                 if (this.debug) {
-                    
+                    console.debug('performing handshake');
+                }
+                ws.send('{"protocol":"json","version":1}');
+            });
+
+            ws.on('close', () => {
+                if (this.debug) {
+                    console.debug('disconnected');
+                }
+            });
+
+            ws.on('message', (data) => {
+           
