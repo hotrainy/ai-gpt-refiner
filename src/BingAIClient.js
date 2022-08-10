@@ -177,4 +177,20 @@ export default class BingAIClient {
                 }
                 if (this.debug) {
                     console.debug(JSON.stringify(messages));
-   
+                    console.debug();
+                }
+            });
+        });
+    }
+
+    static cleanupWebSocketConnection(ws) {
+        clearInterval(ws.bingPingInterval);
+        ws.close();
+        ws.removeAllListeners();
+    }
+
+    async sendMessage(
+        message,
+        opts = {},
+    ) {
+        if (opts.clientOpt
