@@ -168,4 +168,13 @@ export default class BingAIClient {
                         console.debug('handshake established');
                     }
                     // ping
-                    ws.bingPingInterval = setInterval(
+                    ws.bingPingInterval = setInterval(() => {
+                        ws.send('{"type":6}');
+                        // same message is sent back on/after 2nd time as a pong
+                    }, 15 * 1000);
+                    resolve(ws);
+                    return;
+                }
+                if (this.debug) {
+                    console.debug(JSON.stringify(messages));
+   
