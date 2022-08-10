@@ -152,4 +152,12 @@ export default class BingAIClient {
             });
 
             ws.on('message', (data) => {
-           
+                const objects = data.toString().split('');
+                const messages = objects.map((object) => {
+                    try {
+                        return JSON.parse(object);
+                    } catch (error) {
+                        return object;
+                    }
+                }).filter(message => message);
+                if (messages.length ==
