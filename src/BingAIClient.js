@@ -193,4 +193,14 @@ export default class BingAIClient {
         message,
         opts = {},
     ) {
-        if (opts.clientOpt
+        if (opts.clientOptions && typeof opts.clientOptions === 'object') {
+            this.setOptions(opts.clientOptions);
+        }
+
+        let {
+            jailbreakConversationId = false, // set to `true` for the first message to enable jailbreak mode
+            conversationId,
+            encryptedConversationSignature,
+            clientId,
+            onProgress,
+    
