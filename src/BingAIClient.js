@@ -203,4 +203,13 @@ export default class BingAIClient {
             encryptedConversationSignature,
             clientId,
             onProgress,
-    
+        } = opts;
+
+        const {
+            toneStyle = 'balanced', // or creative, precise, fast
+            invocationId = 0,
+            systemMessage,
+            context,
+            parentMessageId = jailbreakConversationId === true ? crypto.randomUUID() : null,
+            abortController = new AbortController(),
+        } = opt
