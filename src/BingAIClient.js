@@ -212,4 +212,13 @@ export default class BingAIClient {
             context,
             parentMessageId = jailbreakConversationId === true ? crypto.randomUUID() : null,
             abortController = new AbortController(),
-        } = opt
+        } = opts;
+
+        if (typeof onProgress !== 'function') {
+            onProgress = () => { };
+        }
+
+        if (jailbreakConversationId || !encryptedConversationSignature || !conversationId || !clientId) {
+            const createNewConversationResponse = await this.createNewConversation();
+            if (this.debug) {
+                con
