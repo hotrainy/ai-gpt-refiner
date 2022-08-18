@@ -221,4 +221,11 @@ export default class BingAIClient {
         if (jailbreakConversationId || !encryptedConversationSignature || !conversationId || !clientId) {
             const createNewConversationResponse = await this.createNewConversation();
             if (this.debug) {
-                con
+                console.debug(createNewConversationResponse);
+            }
+            if (
+                !createNewConversationResponse.encryptedConversationSignature
+                || !createNewConversationResponse.conversationId
+                || !createNewConversationResponse.clientId
+            ) {
+                const resultValue = createNewConversa
