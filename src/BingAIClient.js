@@ -228,4 +228,10 @@ export default class BingAIClient {
                 || !createNewConversationResponse.conversationId
                 || !createNewConversationResponse.clientId
             ) {
-                const resultValue = createNewConversa
+                const resultValue = createNewConversationResponse.result?.value;
+                if (resultValue) {
+                    const e = new Error(createNewConversationResponse.result.message); // default e.name is 'Error'
+                    e.name = resultValue; // such as "UnauthorizedRequest"
+                    throw e;
+                }
+                throw new Error(`Unexpe
