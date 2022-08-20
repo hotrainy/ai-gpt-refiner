@@ -234,4 +234,13 @@ export default class BingAIClient {
                     e.name = resultValue; // such as "UnauthorizedRequest"
                     throw e;
                 }
-                throw new Error(`Unexpe
+                throw new Error(`Unexpected response:\n${JSON.stringify(createNewConversationResponse, null, 2)}`);
+            }
+            ({
+                encryptedConversationSignature,
+                conversationId,
+                clientId,
+            } = createNewConversationResponse);
+        }
+
+        // Due to this jailbreak, the AI will occasionally start responding as th
