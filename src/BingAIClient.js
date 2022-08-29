@@ -263,4 +263,11 @@ export default class BingAIClient {
 
             // TODO: limit token usage
             const previousCachedMessages = this.constructor.getMessagesForConversation(conversation.messages, parentMessageId)
-      
+                .map(conversationMessage => ({
+                    text: conversationMessage.message,
+                    author: conversationMessage.role === 'User' ? 'user' : 'bot',
+                }));
+
+            const previousMessages = invocationId === 0 ? [
+                {
+                    text: sys
