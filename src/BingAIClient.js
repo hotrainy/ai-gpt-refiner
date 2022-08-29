@@ -287,4 +287,13 @@ export default class BingAIClient {
                     case 'user':
                         return `[user](#message)\n${previousMessage.text}`;
                     case 'bot':
-                        return `[assistant](#message)\n${
+                        return `[assistant](#message)\n${previousMessage.text}`;
+                    case 'system':
+                        return `[system](#additional_instructions)\n${previousMessage.text}`;
+                    default:
+                        throw new Error(`Unknown message author: ${previousMessage.author}`);
+                }
+            }).join('\n\n');
+
+            if (context) {
+     
