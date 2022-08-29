@@ -281,4 +281,10 @@ export default class BingAIClient {
                 },
             ] : undefined;
 
-            // prepare mess
+            // prepare messages for prompt injection
+            previousMessagesFormatted = previousMessages?.map((previousMessage) => {
+                switch (previousMessage.author) {
+                    case 'user':
+                        return `[user](#message)\n${previousMessage.text}`;
+                    case 'bot':
+                        return `[assistant](#message)\n${
