@@ -256,4 +256,11 @@ export default class BingAIClient {
         let previousMessagesFormatted;
         let conversation;
         if (jailbreakConversationId) {
-  
+            conversation = (await this.conversationsCache.get(conversationKey)) || {
+                messages: [],
+                createdAt: Date.now(),
+            };
+
+            // TODO: limit token usage
+            const previousCachedMessages = this.constructor.getMessagesForConversation(conversation.messages, parentMessageId)
+      
