@@ -296,4 +296,16 @@ export default class BingAIClient {
             }).join('\n\n');
 
             if (context) {
-     
+                previousMessagesFormatted = `${context}\n\n${previousMessagesFormatted}`;
+            }
+        }
+
+        const userMessage = {
+            id: crypto.randomUUID(),
+            parentMessageId,
+            role: 'User',
+            message,
+        };
+
+        if (jailbreakConversationId) {
+            conversation.messages.push(userMe
