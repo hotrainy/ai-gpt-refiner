@@ -308,4 +308,17 @@ export default class BingAIClient {
         };
 
         if (jailbreakConversationId) {
-            conversation.messages.push(userMe
+            conversation.messages.push(userMessage);
+        }
+
+        const ws = await this.createWebSocketConnection(encryptedConversationSignature);
+
+        ws.on('error', (error) => {
+            console.error(error);
+            abortController.abort();
+        });
+
+        let toneOption;
+        if (toneStyle === 'creative') {
+            toneOption = 'h3imaginative';
+        } else if (toneStyle ==
