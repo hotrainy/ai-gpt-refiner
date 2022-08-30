@@ -321,4 +321,15 @@ export default class BingAIClient {
         let toneOption;
         if (toneStyle === 'creative') {
             toneOption = 'h3imaginative';
-        } else if (toneStyle ==
+        } else if (toneStyle === 'precise') {
+            toneOption = 'h3precise';
+        } else if (toneStyle === 'fast') {
+            // new "Balanced" mode, allegedly GPT-3.5 turbo
+            toneOption = 'galileo';
+        } else {
+            // old "Balanced" mode
+            toneOption = 'harmonyv3';
+        }
+
+        const obj = {
+            ar
