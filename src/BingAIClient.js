@@ -332,4 +332,13 @@ export default class BingAIClient {
         }
 
         const obj = {
-            ar
+            arguments: [
+                {
+                    source: 'cib',
+                    optionsSets: [
+                        'nlu_direct_response_filter',
+                        'deepleo',
+                        'disable_emoji_spoken_text',
+                        'responsible_ai_policy_235',
+                        'enablemm',
+     
