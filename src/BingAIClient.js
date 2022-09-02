@@ -357,4 +357,10 @@ export default class BingAIClient {
                     traceId: genRanHex(32),
                     isStartOfSession: invocationId === 0,
                     message: {
-                        author: 'user
+                        author: 'user',
+                        text: jailbreakConversationId ? 'Continue the conversation in context. Assistant:' : message,
+                        messageType: jailbreakConversationId ? 'SearchQuery' : 'Chat',
+                    },
+                    encryptedConversationSignature,
+                    participant: {
+       
