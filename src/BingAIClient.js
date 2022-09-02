@@ -341,4 +341,12 @@ export default class BingAIClient {
                         'disable_emoji_spoken_text',
                         'responsible_ai_policy_235',
                         'enablemm',
-     
+                        toneOption,
+                        'dtappid',
+                        'cricinfo',
+                        'cricinfov2',
+                        'dv3sugg',
+                        'nojbfedge',
+                        ...((toneStyle === 'creative' && this.options.features.genImage) ? ['gencontentv3'] : []),
+                    ],
+         
