@@ -349,4 +349,12 @@ export default class BingAIClient {
                         'nojbfedge',
                         ...((toneStyle === 'creative' && this.options.features.genImage) ? ['gencontentv3'] : []),
                     ],
-         
+                    sliceIds: [
+                        '222dtappid',
+                        '225cricinfo',
+                        '224locals0',
+                    ],
+                    traceId: genRanHex(32),
+                    isStartOfSession: invocationId === 0,
+                    message: {
+                        author: 'user
