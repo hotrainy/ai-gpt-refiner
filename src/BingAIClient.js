@@ -410,4 +410,13 @@ export default class BingAIClient {
             }, 300 * 1000);
 
             // abort the request if the abort controller is aborted
-            abortController.signal.addEventListene
+            abortController.signal.addEventListener('abort', () => {
+                clearTimeout(messageTimeout);
+                this.constructor.cleanupWebSocketConnection(ws);
+                reject(new Error('Request aborted'));
+            });
+
+            let bicIframe;
+            ws.on('message', async (data) => {
+                const objects = data.toString().split('');
+                
