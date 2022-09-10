@@ -419,4 +419,13 @@ export default class BingAIClient {
             let bicIframe;
             ws.on('message', async (data) => {
                 const objects = data.toString().split('');
-                
+                const events = objects.map((object) => {
+                    try {
+                        return JSON.parse(object);
+                    } catch (error) {
+                        return object;
+                    }
+                }).filter(eventMessage => eventMessage);
+                if (events.length === 0) {
+                    return;
+ 
