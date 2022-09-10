@@ -384,4 +384,12 @@ export default class BingAIClient {
             });
         }
 
-        // simulates document summary function on Edge's 
+        // simulates document summary function on Edge's Bing sidebar
+        // unknown character limit, at least up to 7k
+        if (!jailbreakConversationId && context) {
+            obj.arguments[0].previousMessages.push({
+                author: 'user',
+                description: context,
+                contextType: 'WebPage',
+                messageType: 'Context',
+                messageId: 'discover
