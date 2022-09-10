@@ -375,4 +375,13 @@ export default class BingAIClient {
         };
 
         if (previousMessagesFormatted) {
-            obj.arguments[0].previous
+            obj.arguments[0].previousMessages.push({
+                author: 'user',
+                description: previousMessagesFormatted,
+                contextType: 'WebPage',
+                messageType: 'Context',
+                messageId: 'discover-web--page-ping-mriduna-----',
+            });
+        }
+
+        // simulates document summary function on Edge's 
