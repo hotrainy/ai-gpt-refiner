@@ -392,4 +392,16 @@ export default class BingAIClient {
                 description: context,
                 contextType: 'WebPage',
                 messageType: 'Context',
-                messageId: 'discover
+                messageId: 'discover-web--page-ping-mriduna-----',
+            });
+        }
+
+        if (obj.arguments[0].previousMessages.length === 0) {
+            delete obj.arguments[0].previousMessages;
+        }
+
+        const messagePromise = new Promise((resolve, reject) => {
+            let replySoFar = '';
+            let stopTokenFound = false;
+
+            const messageTimeout 
