@@ -363,4 +363,16 @@ export default class BingAIClient {
                     },
                     encryptedConversationSignature,
                     participant: {
-       
+                        id: clientId,
+                    },
+                    conversationId,
+                    previousMessages: [],
+                },
+            ],
+            invocationId: invocationId.toString(),
+            target: 'chat',
+            type: 4,
+        };
+
+        if (previousMessagesFormatted) {
+            obj.arguments[0].previous
