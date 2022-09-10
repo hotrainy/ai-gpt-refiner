@@ -404,4 +404,10 @@ export default class BingAIClient {
             let replySoFar = '';
             let stopTokenFound = false;
 
-            const messageTimeout 
+            const messageTimeout = setTimeout(() => {
+                this.constructor.cleanupWebSocketConnection(ws);
+                reject(new Error('Timed out waiting for response. Try enabling debug mode to see more information.'));
+            }, 300 * 1000);
+
+            // abort the request if the abort controller is aborted
+            abortController.signal.addEventListene
