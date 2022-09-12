@@ -436,4 +436,10 @@ export default class BingAIClient {
                             return;
                         }
                         const messages = event?.arguments?.[0]?.messages;
-         
+                        if (!messages?.length || messages[0].author !== 'bot') {
+                            return;
+                        }
+                        if (messages[0].contentOrigin === 'Apology') {
+                            return;
+                        }
+                        if (messages[0]?.conten
