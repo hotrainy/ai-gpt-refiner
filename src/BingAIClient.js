@@ -442,4 +442,9 @@ export default class BingAIClient {
                         if (messages[0].contentOrigin === 'Apology') {
                             return;
                         }
-                        if (messages[0]?.conten
+                        if (messages[0]?.contentType === 'IMAGE') {
+                            // You will never get a message of this type without 'gencontentv3' being on.
+                            bicIframe = this.bic.genImageIframeSsr(
+                                messages[0].text,
+                                messages[0].messageId,
+                                progress => (
