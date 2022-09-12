@@ -428,4 +428,12 @@ export default class BingAIClient {
                 }).filter(eventMessage => eventMessage);
                 if (events.length === 0) {
                     return;
- 
+                }
+                const event = events[0];
+                switch (event.type) {
+                    case 1: {
+                        if (stopTokenFound) {
+                            return;
+                        }
+                        const messages = event?.arguments?.[0]?.messages;
+         
