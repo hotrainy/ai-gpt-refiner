@@ -453,4 +453,11 @@ export default class BingAIClient {
                                 bicIframe.isError = true;
                                 return error.message;
                             });
-                            retur
+                            return;
+                        }
+                        const updatedText = messages[0].text;
+                        if (!updatedText || updatedText === replySoFar) {
+                            return;
+                        }
+                        // get the difference between the current text and the previous text
+                        const difference = updat
