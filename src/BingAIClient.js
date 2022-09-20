@@ -447,4 +447,10 @@ export default class BingAIClient {
                             bicIframe = this.bic.genImageIframeSsr(
                                 messages[0].text,
                                 messages[0].messageId,
-                                progress => (
+                                progress => (progress?.contentIframe ? onProgress(progress?.contentIframe) : null),
+                            ).catch((error) => {
+                                onProgress(error.message);
+                                bicIframe.isError = true;
+                                return error.message;
+                            });
+                            retur
