@@ -465,4 +465,13 @@ export default class BingAIClient {
                         if (updatedText.trim().endsWith(stopToken)) {
                             stopTokenFound = true;
                             // remove stop token from updated text
-                            replySoFar = updatedText.replac
+                            replySoFar = updatedText.replace(stopToken, '').trim();
+                            return;
+                        }
+                        replySoFar = updatedText;
+                        return;
+                    }
+                    case 2: {
+                        clearTimeout(messageTimeout);
+                        this.constructor.cleanupWebSocketConnection(ws);
+  
