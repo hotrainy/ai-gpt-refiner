@@ -489,4 +489,10 @@ export default class BingAIClient {
                             if (replySoFar && eventMessage) {
                                 eventMessage.adaptiveCards[0].body[0].text = replySoFar;
                                 eventMessage.text = replySoFar;
-                             
+                                resolve({
+                                    message: eventMessage,
+                                    conversationExpiryTime: event?.item?.conversationExpiryTime,
+                                });
+                                return;
+                            }
+                            reject(new Error(`${event.item.result.value}: ${event.item.r
