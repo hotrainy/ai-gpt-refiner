@@ -479,4 +479,8 @@ export default class BingAIClient {
                             return;
                         }
                         const messages = event.item?.messages || [];
-                      
+                        let eventMessage = messages.length ? messages[messages.length - 1] : null;
+                        if (event.item?.result?.error) {
+                            if (this.debug) {
+                                console.debug(event.item.result.value, event.item.result.message);
+                                console.debug(event.it
