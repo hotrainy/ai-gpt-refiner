@@ -474,4 +474,9 @@ export default class BingAIClient {
                     case 2: {
                         clearTimeout(messageTimeout);
                         this.constructor.cleanupWebSocketConnection(ws);
-  
+                        if (event.item?.result?.value === 'InvalidSession') {
+                            reject(new Error(`${event.item.result.value}: ${event.item.result.message}`));
+                            return;
+                        }
+                        const messages = event.item?.messages || [];
+                      
