@@ -502,4 +502,12 @@ export default class BingAIClient {
                             reject(new Error('No message was generated.'));
                             return;
                         }
-                        if (eventMessage?.author !== 'bo
+                        if (eventMessage?.author !== 'bot') {
+                            reject(new Error('Unexpected message author.'));
+                            return;
+                        }
+                        // The moderation filter triggered, so just return the text we have so far
+                        if (
+                            jailbreakConversationId
+                            && (
+                
