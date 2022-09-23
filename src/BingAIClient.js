@@ -495,4 +495,11 @@ export default class BingAIClient {
                                 });
                                 return;
                             }
-                            reject(new Error(`${event.item.result.value}: ${event.item.r
+                            reject(new Error(`${event.item.result.value}: ${event.item.result.message}`));
+                            return;
+                        }
+                        if (!eventMessage) {
+                            reject(new Error('No message was generated.'));
+                            return;
+                        }
+                        if (eventMessage?.author !== 'bo
