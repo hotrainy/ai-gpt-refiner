@@ -510,4 +510,10 @@ export default class BingAIClient {
                         if (
                             jailbreakConversationId
                             && (
-                
+                                stopTokenFound
+                                || event.item.messages[0].topicChangerText
+                                || event.item.messages[0].offense === 'OffenseTrigger'
+                                || (event.item.messages.length > 1 && event.item.messages[1].contentOrigin === 'Apology')
+                            )
+                        ) {
+         
