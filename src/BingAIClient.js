@@ -516,4 +516,9 @@ export default class BingAIClient {
                                 || (event.item.messages.length > 1 && event.item.messages[1].contentOrigin === 'Apology')
                             )
                         ) {
-         
+                            if (!replySoFar) {
+                                replySoFar = '[Error: The moderation filter triggered. Try again with different wording.]';
+                            }
+                            eventMessage.adaptiveCards[0].body[0].text = replySoFar;
+                            eventMessage.text = replySoFar;
+                            // 
