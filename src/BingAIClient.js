@@ -521,4 +521,10 @@ export default class BingAIClient {
                             }
                             eventMessage.adaptiveCards[0].body[0].text = replySoFar;
                             eventMessage.text = replySoFar;
-                            // 
+                            // delete useless suggestions from moderation filter
+                            delete eventMessage.suggestedResponses;
+                        }
+                        if (bicIframe) {
+                            // the last messages will be a image creation event if bicIframe is present.
+                            let i = messages.length - 1;
+                
