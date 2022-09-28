@@ -527,4 +527,10 @@ export default class BingAIClient {
                         if (bicIframe) {
                             // the last messages will be a image creation event if bicIframe is present.
                             let i = messages.length - 1;
-                
+                            while (eventMessage?.contentType === 'IMAGE' && i > 0) {
+                                eventMessage = messages[i -= 1];
+                            }
+
+                            // wait for bicIframe to be completed.
+                            // since we added a catch, we do not need to wrap this with a try catch block.
+             
