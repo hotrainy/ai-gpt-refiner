@@ -558,4 +558,9 @@ export default class BingAIClient {
                     }
                     default:
                         if (event?.error) {
-                            clearTimeout(m
+                            clearTimeout(messageTimeout);
+                            this.constructor.cleanupWebSocketConnection(ws);
+                            reject(new Error(`Event Type('${event.type}'): ${event.error}`));
+                        }
+                        // eslint-disable-next-line no-useless-return
+                        retur
