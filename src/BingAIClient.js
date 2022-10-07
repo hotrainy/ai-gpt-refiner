@@ -533,4 +533,9 @@ export default class BingAIClient {
 
                             // wait for bicIframe to be completed.
                             // since we added a catch, we do not need to wrap this with a try catch block.
-             
+                            const imgIframe = await bicIframe;
+                            if (!imgIframe?.isError) {
+                                eventMessage.adaptiveCards[0].body[0].text += imgIframe;
+                            } else {
+                                eventMessage.text += `<br>${imgIframe}`;
+                                eventMe
