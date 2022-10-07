@@ -589,4 +589,17 @@ export default class BingAIClient {
         };
         if (jailbreakConversationId) {
             conversation.messages.push(replyMessage);
-            await this.conversationsCache
+            await this.conversationsCache.set(conversationKey, conversation);
+        }
+
+        const returnData = {
+            conversationId,
+            encryptedConversationSignature,
+            clientId,
+            invocationId: invocationId + 1,
+            conversationExpiryTime,
+            response: reply.text,
+            details: reply,
+        };
+
+     
