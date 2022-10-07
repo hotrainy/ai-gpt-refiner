@@ -578,4 +578,15 @@ export default class BingAIClient {
         const {
             message: reply,
             conversationExpiryTime,
-        } = awa
+        } = await messagePromise;
+
+        const replyMessage = {
+            id: crypto.randomUUID(),
+            parentMessageId: userMessage.id,
+            role: 'Bing',
+            message: reply.text,
+            details: reply,
+        };
+        if (jailbreakConversationId) {
+            conversation.messages.push(replyMessage);
+            await this.conversationsCache
