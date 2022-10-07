@@ -563,4 +563,19 @@ export default class BingAIClient {
                             reject(new Error(`Event Type('${event.type}'): ${event.error}`));
                         }
                         // eslint-disable-next-line no-useless-return
-                        retur
+                        return;
+                }
+            });
+        });
+
+        const messageJson = JSON.stringify(obj);
+        if (this.debug) {
+            console.debug(messageJson);
+            console.debug('\n\n\n\n');
+        }
+        ws.send(`${messageJson}`);
+
+        const {
+            message: reply,
+            conversationExpiryTime,
+        } = awa
