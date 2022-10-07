@@ -551,4 +551,11 @@ export default class BingAIClient {
                     case 7: {
                         // [{"type":7,"error":"Connection closed with an error.","allowReconnect":true}]
                         clearTimeout(messageTimeout);
-                        this.constructor.cleanupWebSocketConnecti
+                        this.constructor.cleanupWebSocketConnection(ws);
+                        reject(new Error(event.error || 'Connection closed with an error.'));
+                        // eslint-disable-next-line no-useless-return
+                        return;
+                    }
+                    default:
+                        if (event?.error) {
+                            clearTimeout(m
