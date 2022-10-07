@@ -545,4 +545,10 @@ export default class BingAIClient {
                             message: eventMessage,
                             conversationExpiryTime: event?.item?.conversationExpiryTime,
                         });
-                        // eslint-disa
+                        // eslint-disable-next-line no-useless-return
+                        return;
+                    }
+                    case 7: {
+                        // [{"type":7,"error":"Connection closed with an error.","allowReconnect":true}]
+                        clearTimeout(messageTimeout);
+                        this.constructor.cleanupWebSocketConnecti
