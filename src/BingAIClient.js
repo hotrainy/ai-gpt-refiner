@@ -538,4 +538,11 @@ export default class BingAIClient {
                                 eventMessage.adaptiveCards[0].body[0].text += imgIframe;
                             } else {
                                 eventMessage.text += `<br>${imgIframe}`;
-                                eventMe
+                                eventMessage.adaptiveCards[0].body[0].text = eventMessage.text;
+                            }
+                        }
+                        resolve({
+                            message: eventMessage,
+                            conversationExpiryTime: event?.item?.conversationExpiryTime,
+                        });
+                        // eslint-disa
