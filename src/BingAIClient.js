@@ -602,4 +602,14 @@ export default class BingAIClient {
             details: reply,
         };
 
-     
+        if (jailbreakConversationId) {
+            returnData.jailbreakConversationId = jailbreakConversationId;
+            returnData.parentMessageId = replyMessage.parentMessageId;
+            returnData.messageId = replyMessage.id;
+        }
+
+        return returnData;
+    }
+
+    /**
+     * Iterate through messages, building an array based on the parent
