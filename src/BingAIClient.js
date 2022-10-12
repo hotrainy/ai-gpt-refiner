@@ -612,4 +612,10 @@ export default class BingAIClient {
     }
 
     /**
-     * Iterate through messages, building an array based on the parent
+     * Iterate through messages, building an array based on the parentMessageId.
+     * Each message has an id and a parentMessageId. The parentMessageId is the id of the message that this message is a reply to.
+     * @param messages
+     * @param parentMessageId
+     * @returns {*[]} An array containing the messages in the order they should be displayed, starting with the root message.
+     */
+    static getMessagesForConversation(me
