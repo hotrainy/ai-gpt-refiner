@@ -618,4 +618,12 @@ export default class BingAIClient {
      * @param parentMessageId
      * @returns {*[]} An array containing the messages in the order they should be displayed, starting with the root message.
      */
-    static getMessagesForConversation(me
+    static getMessagesForConversation(messages, parentMessageId) {
+        const orderedMessages = [];
+        let currentMessageId = parentMessageId;
+        while (currentMessageId) {
+            // eslint-disable-next-line no-loop-func
+            const message = messages.find(m => m.id === currentMessageId);
+            if (!message) {
+                break;
+       
