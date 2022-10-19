@@ -17,4 +17,13 @@ export default class ChatGPTClient {
     ) {
         this.apiKey = apiKey;
 
-        cacheOptions.namespace
+        cacheOptions.namespace = cacheOptions.namespace || 'chatgpt';
+        this.conversationsCache = new Keyv(cacheOptions);
+
+        this.setOptions(options);
+    }
+
+    setOptions(options) {
+        if (this.options && !this.options.replaceOptions) {
+            // nested options aren't spread properly, so we need to do this manually
+    
