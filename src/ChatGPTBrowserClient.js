@@ -211,3 +211,112 @@ export default class ChatGPTBrowserClient {
 
         let { conversationId } = opts;
         const parentMessageId = opts.parentMessageId || crypto.randomUUID();
+
+        let conversation;
+        if (conversationId) {
+            conversation = await this.conversationsCache.get(conversationId);
+        }
+        if (!conversation) {
+            conversation = {
+                messages: [],
+                createdAt: Date.now(),
+            };
+        }
+
+        const userMessage = {
+            id: crypto.randomUUID(),
+            parentMessageId,
+            role: 'User',
+            message,
+        };
+
+        conversation.messages.push(userMessage);
+
+        const result = await this.postConversation(
+            {
+                conversationId,
+                parentMessageId,
+                message: userMessage,
+            },
+            opts.onProgress || (() => {}),
+            opts.abortController || new AbortController(),
+            opts?.onEventMessage,
+        );
+
+        if (this.options.debug) {
+            console.debug(JSON.stringify(result));
+            console.debug();
+        }
+
+        conversationId = result.conversation_id;
+        const reply = result.message.content.parts[0].trim();
+
+        const replyMessage = {
+            id: result.message.id,
+            parentMessageId: userMessage.id,
+            role: 'ChatGPT',
+            message: reply,
+        };
+
+        conversation.messages.push(replyMessage);
+
+        await this.conversationsCache.set(conversationId, conversation);
+
+        return {
+            response: replyMessage.message,
+            conversationId,
+            parentMessageId: replyMessage.parentMessageId,
+            messageId: replyMessage.id,
+            details: result,
+        };
+    }
+
+    async genTitle(event) {
+        const { debug } = this.options;
+        if (debug) {
+            console.log('Generate title: ', event);
+        }
+        if (!event || !event.conversation_id || !event.message || !event.message.id) {
+            return null;
+        }
+
+        const conversationId = event.conversation_id;
+        const messageId = event.message.id;
+
+        const baseUrl = this.options.reverseProxyUrl || 'https://chat.openai.com/backend-api/conversation';
+        const url = `${baseUrl}/gen_title/${conversationId}`;
+        const opts = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.accessToken}`,
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36',
+                Cookie: this.cookies || undefined,
+            },
+            body: JSON.stringify({
+                message_id: messageId,
+                model: this.model,
+            }),
+        };
+
+        if (this.options.proxy) {
+            opts.dispatcher = new ProxyAgent(this.options.proxy);
+        }
+
+        if (debug) {
+            console.debug(url, opts);
+        }
+
+        try {
+            const ret = await fetch(url, opts);
+            const data = await ret.text();
+            if (debug) {
+                console.log('Gen title response: ', data);
+            }
+            return JSON.parse(data).title;
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    }
+}
