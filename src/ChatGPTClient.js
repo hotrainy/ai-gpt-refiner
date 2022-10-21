@@ -35,4 +35,16 @@ export default class ChatGPTClient {
             this.options = {
                 ...this.options,
                 ...options,
-            }
+            };
+        } else {
+            this.options = options;
+        }
+
+        if (this.options.openaiApiKey) {
+            this.apiKey = this.options.openaiApiKey;
+        }
+
+        const modelOptions = this.options.modelOptions || {};
+        this.modelOptions = {
+            ...modelOptions,
+            // set some good
