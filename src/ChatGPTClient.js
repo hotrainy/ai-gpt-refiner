@@ -47,4 +47,8 @@ export default class ChatGPTClient {
         const modelOptions = this.options.modelOptions || {};
         this.modelOptions = {
             ...modelOptions,
-            // set some good
+            // set some good defaults (check for undefined in some cases because they may be 0)
+            model: modelOptions.model || CHATGPT_MODEL,
+            temperature: typeof modelOptions.temperature === 'undefined' ? 0.8 : modelOptions.temperature,
+            top_p: typeof modelOptions.top_p === 'undefined' ? 1 : modelOptions.top_p,
+            presence_penalt
