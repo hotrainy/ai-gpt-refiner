@@ -66,4 +66,7 @@ export default class ChatGPTClient {
         // The max prompt tokens is determined by the max context tokens minus the max response tokens.
         // Earlier messages will be dropped until the prompt is within the limit.
         this.maxResponseTokens = this.modelOptions.max_tokens || 1024;
-        this.maxPromptTokens = this.options.maxP
+        this.maxPromptTokens = this.options.maxPromptTokens || (this.maxContextTokens - this.maxResponseTokens);
+
+        if (this.maxPromptTokens + this.maxResponseTokens > this.maxContextTokens) {
+            throw new Error(`maxPromptTokens + max_tokens (${this.maxPromptTokens} + ${this.maxResponseTokens} = ${this.maxPromptTokens + this.maxResponseTokens}) must be less
