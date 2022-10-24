@@ -57,4 +57,9 @@ export default class ChatGPTClient {
 
         this.isChatGptModel = this.modelOptions.model.startsWith('gpt-');
         const { isChatGptModel } = this;
-        this.isUnofficialChatGptModel = this.modelOptions.model.startsW
+        this.isUnofficialChatGptModel = this.modelOptions.model.startsWith('text-chat') || this.modelOptions.model.startsWith('text-davinci-002-render');
+        const { isUnofficialChatGptModel } = this;
+
+        // Davinci models have a max context length of 4097 tokens.
+        this.maxContextTokens = this.options.maxContextTokens || (isChatGptModel ? 4095 : 4097);
+      
