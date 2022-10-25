@@ -69,4 +69,11 @@ export default class ChatGPTClient {
         this.maxPromptTokens = this.options.maxPromptTokens || (this.maxContextTokens - this.maxResponseTokens);
 
         if (this.maxPromptTokens + this.maxResponseTokens > this.maxContextTokens) {
-            throw new Error(`maxPromptTokens + max_tokens (${this.maxPromptTokens} + ${this.maxResponseTokens} = ${this.maxPromptTokens + this.maxResponseTokens}) must be less
+            throw new Error(`maxPromptTokens + max_tokens (${this.maxPromptTokens} + ${this.maxResponseTokens} = ${this.maxPromptTokens + this.maxResponseTokens}) must be less than or equal to maxContextTokens (${this.maxContextTokens})`);
+        }
+
+        this.userLabel = this.options.userLabel || 'User';
+        this.chatGptLabel = this.options.chatGptLabel || 'ChatGPT';
+
+        if (isChatGptModel) {
+            // Use these faux tokens to help the AI understand the context since we are building the chat log o
