@@ -76,4 +76,9 @@ export default class ChatGPTClient {
         this.chatGptLabel = this.options.chatGptLabel || 'ChatGPT';
 
         if (isChatGptModel) {
-            // Use these faux tokens to help the AI understand the context since we are building the chat log o
+            // Use these faux tokens to help the AI understand the context since we are building the chat log ourselves.
+            // Trying to use "<|im_start|>" causes the AI to still generate "<" or "<|" at the end sometimes for some reason,
+            // without tripping the stop sequences, so I'm using "||>" instead.
+            this.startToken = '||>';
+            this.endToken = '';
+            this.gptEncoder = th
