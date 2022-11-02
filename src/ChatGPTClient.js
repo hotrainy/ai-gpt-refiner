@@ -88,4 +88,8 @@ export default class ChatGPTClient {
             this.gptEncoder = this.constructor.getTokenizer('text-davinci-003', true, {
                 '<|im_start|>': 100264,
                 '<|im_end|>': 100265,
-            
+            });
+        } else {
+            // Previously I was trying to use "<|endoftext|>" but there seems to be some bug with OpenAI's token counting
+            // system that causes only the first "<|endoftext|>" to be counted as 1 token, and the rest are not treated
+            // as a single token. So we're using this instead
