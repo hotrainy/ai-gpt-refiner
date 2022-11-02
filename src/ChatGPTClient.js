@@ -81,4 +81,11 @@ export default class ChatGPTClient {
             // without tripping the stop sequences, so I'm using "||>" instead.
             this.startToken = '||>';
             this.endToken = '';
-            this.gptEncoder = th
+            this.gptEncoder = this.constructor.getTokenizer('cl100k_base');
+        } else if (isUnofficialChatGptModel) {
+            this.startToken = '<|im_start|>';
+            this.endToken = '<|im_end|>';
+            this.gptEncoder = this.constructor.getTokenizer('text-davinci-003', true, {
+                '<|im_start|>': 100264,
+                '<|im_end|>': 100265,
+            
