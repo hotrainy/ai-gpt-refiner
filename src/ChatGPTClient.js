@@ -102,4 +102,11 @@ export default class ChatGPTClient {
             }
         }
 
-        if (!this.modelOpti
+        if (!this.modelOptions.stop) {
+            const stopTokens = [this.startToken];
+            if (this.endToken && this.endToken !== this.startToken) {
+                stopTokens.push(this.endToken);
+            }
+            stopTokens.push(`\n${this.userLabel}:`);
+            stopTokens.push('<|diff_marker|>');
+            // I chose not to do 
