@@ -117,4 +117,16 @@ export default class ChatGPTClient {
             this.completionsUrl = this.options.reverseProxyUrl;
         } else if (isChatGptModel) {
             this.completionsUrl = 'https://api.openai.com/v1/chat/completions';
-        
+        } else {
+            this.completionsUrl = 'https://api.openai.com/v1/completions';
+        }
+
+        return this;
+    }
+
+    static getTokenizer(encoding, isModelName = false, extendSpecialTokens = {}) {
+        if (tokenizersCache[encoding]) {
+            return tokenizersCache[encoding];
+        }
+        let tokenizer;
+        if (isModelName) 
