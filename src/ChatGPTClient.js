@@ -129,4 +129,14 @@ export default class ChatGPTClient {
             return tokenizersCache[encoding];
         }
         let tokenizer;
-        if (isModelName) 
+        if (isModelName) {
+            tokenizer = encodingForModel(encoding, extendSpecialTokens);
+        } else {
+            tokenizer = getEncoding(encoding, extendSpecialTokens);
+        }
+        tokenizersCache[encoding] = tokenizer;
+        return tokenizer;
+    }
+
+    async getCompletion(input, onProgress, abortController = null) {
+        if (!abortControll
