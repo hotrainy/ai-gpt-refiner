@@ -109,4 +109,12 @@ export default class ChatGPTClient {
             }
             stopTokens.push(`\n${this.userLabel}:`);
             stopTokens.push('<|diff_marker|>');
-            // I chose not to do 
+            // I chose not to do one for `chatGptLabel` because I've never seen it happen
+            this.modelOptions.stop = stopTokens;
+        }
+
+        if (this.options.reverseProxyUrl) {
+            this.completionsUrl = this.options.reverseProxyUrl;
+        } else if (isChatGptModel) {
+            this.completionsUrl = 'https://api.openai.com/v1/chat/completions';
+        
