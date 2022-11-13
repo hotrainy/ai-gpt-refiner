@@ -139,4 +139,14 @@ export default class ChatGPTClient {
     }
 
     async getCompletion(input, onProgress, abortController = null) {
-        if (!abortControll
+        if (!abortController) {
+            abortController = new AbortController();
+        }
+        const modelOptions = { ...this.modelOptions };
+        if (typeof onProgress === 'function') {
+            modelOptions.stream = true;
+        }
+        if (this.isChatGptModel) {
+            modelOptions.messages = input;
+        } else {
+      
