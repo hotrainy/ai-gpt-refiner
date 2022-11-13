@@ -149,4 +149,15 @@ export default class ChatGPTClient {
         if (this.isChatGptModel) {
             modelOptions.messages = input;
         } else {
-      
+            modelOptions.prompt = input;
+        }
+        const { debug } = this.options;
+        const url = this.completionsUrl;
+        if (debug) {
+            console.debug();
+            console.debug(url);
+            console.debug(modelOptions);
+            console.debug();
+        }
+        const opts = {
+            method: 'POST'
