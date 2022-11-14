@@ -160,4 +160,16 @@ export default class ChatGPTClient {
             console.debug();
         }
         const opts = {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(modelOptions),
+            dispatcher: new Agent({
+                bodyTimeout: 0,
+                headersTimeout: 0,
+            }),
+        };
+
+        if (this.apiKey && this.options.azure && this.options.reverseProxyUrl) {
+         
