@@ -191,4 +191,11 @@ export default class ChatGPTClient {
                 try {
                     let done = false;
                     await fetchEventSource(url, {
-            
+                        ...opts,
+                        signal: abortController.signal,
+                        async onopen(response) {
+                            if (response.status === 200) {
+                                return;
+                            }
+                            if (debug) {
+           
