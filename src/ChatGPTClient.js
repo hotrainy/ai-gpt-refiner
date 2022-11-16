@@ -182,4 +182,13 @@ export default class ChatGPTClient {
         }
 
         if (this.options.proxy) {
-            opts.dispatcher = new Proxy
+            opts.dispatcher = new ProxyAgent(this.options.proxy);
+        }
+
+        if (modelOptions.stream) {
+            // eslint-disable-next-line no-async-promise-executor
+            return new Promise(async (resolve, reject) => {
+                try {
+                    let done = false;
+                    await fetchEventSource(url, {
+            
