@@ -198,4 +198,10 @@ export default class ChatGPTClient {
                                 return;
                             }
                             if (debug) {
-           
+                                console.debug(response);
+                            }
+                            let error;
+                            try {
+                                const body = await response.text();
+                                error = new Error(`Failed to send message. HTTP ${response.status} - ${body}`);
+                
