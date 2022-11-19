@@ -215,4 +215,12 @@ export default class ChatGPTClient {
                             if (debug) {
                                 console.debug('Server closed the connection unexpectedly, returning...');
                             }
-                            // worka
+                            // workaround for private API not sending [DONE] event
+                            if (!done) {
+                                onProgress('[DONE]');
+                                abortController.abort();
+                                resolve();
+                            }
+                        },
+                        onerror(err) {
+            
