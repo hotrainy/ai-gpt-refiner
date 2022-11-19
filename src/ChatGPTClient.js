@@ -208,4 +208,11 @@ export default class ChatGPTClient {
                                 error.json = JSON.parse(body);
                             } catch {
                                 error = error || new Error(`Failed to send message. HTTP ${response.status}`);
-                      
+                            }
+                            throw error;
+                        },
+                        onclose() {
+                            if (debug) {
+                                console.debug('Server closed the connection unexpectedly, returning...');
+                            }
+                            // worka
