@@ -204,4 +204,8 @@ export default class ChatGPTClient {
                             try {
                                 const body = await response.text();
                                 error = new Error(`Failed to send message. HTTP ${response.status} - ${body}`);
-                
+                                error.status = response.status;
+                                error.json = JSON.parse(body);
+                            } catch {
+                                error = error || new Error(`Failed to send message. HTTP ${response.status}`);
+                      
