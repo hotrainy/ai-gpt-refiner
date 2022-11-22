@@ -223,4 +223,12 @@ export default class ChatGPTClient {
                             }
                         },
                         onerror(err) {
-            
+                            if (debug) {
+                                console.debug(err);
+                            }
+                            // rethrow to stop the operation
+                            throw err;
+                        },
+                        onmessage(message) {
+                            if (debug) {
+         
