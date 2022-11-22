@@ -231,4 +231,10 @@ export default class ChatGPTClient {
                         },
                         onmessage(message) {
                             if (debug) {
-         
+                                console.debug(message);
+                            }
+                            if (!message.data || message.event === 'ping') {
+                                return;
+                            }
+                            if (message.data === '[DONE]') {
+                                onProgress('[DONE]')
