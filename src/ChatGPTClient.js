@@ -237,4 +237,14 @@ export default class ChatGPTClient {
                                 return;
                             }
                             if (message.data === '[DONE]') {
-                                onProgress('[DONE]')
+                                onProgress('[DONE]');
+                                abortController.abort();
+                                resolve();
+                                done = true;
+                                return;
+                            }
+                            onProgress(JSON.parse(message.data));
+                        },
+                    });
+                } catch (err) {
+                 
