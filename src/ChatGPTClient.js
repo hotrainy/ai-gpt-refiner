@@ -247,4 +247,17 @@ export default class ChatGPTClient {
                         },
                     });
                 } catch (err) {
-                 
+                    reject(err);
+                }
+            });
+        }
+        const response = await fetch(
+            url,
+            {
+                ...opts,
+                signal: abortController.signal,
+            },
+        );
+        if (response.status !== 200) {
+            const body = await response.text();
+            const error = new Error(`Failed to send mes
