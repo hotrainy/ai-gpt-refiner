@@ -260,4 +260,16 @@ export default class ChatGPTClient {
         );
         if (response.status !== 200) {
             const body = await response.text();
-            const error = new Error(`Failed to send mes
+            const error = new Error(`Failed to send message. HTTP ${response.status} - ${body}`);
+            error.status = response.status;
+            try {
+                error.json = JSON.parse(body);
+            } catch {
+                error.body = body;
+            }
+            throw error;
+        }
+        return response.json();
+    }
+
+    async generateTitle(userMessage, botMess
