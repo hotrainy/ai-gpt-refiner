@@ -272,4 +272,17 @@ export default class ChatGPTClient {
         return response.json();
     }
 
-    async generateTitle(userMessage, botMess
+    async generateTitle(userMessage, botMessage) {
+        const instructionsPayload = {
+            role: 'system',
+            content: `Write an extremely concise subtitle for this conversation with no more than a few words. All words should be capitalized. Exclude punctuation.
+
+||>Message:
+${userMessage.message}
+||>Response:
+${botMessage.message}
+
+||>Title:`,
+        };
+
+        cons
