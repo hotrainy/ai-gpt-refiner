@@ -292,4 +292,9 @@ ${botMessage.message}
             presence_penalty: 0,
             frequency_penalty: 0,
         };
-        const titleGenClient = new ChatGP
+        const titleGenClient = new ChatGPTClient(this.apiKey, titleGenClientOptions);
+        const result = await titleGenClient.getCompletion([instructionsPayload], null);
+        // remove any non-alphanumeric characters, replace multiple spaces with 1, and then trim
+        return result.choices[0].message.content
+            .replace(/[^a-zA-Z0-9' ]/g, '')
+    
