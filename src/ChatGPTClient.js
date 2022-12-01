@@ -310,4 +310,12 @@ ${botMessage.message}
         }
 
         const conversationId = opts.conversationId || crypto.randomUUID();
-        c
+        const parentMessageId = opts.parentMessageId || crypto.randomUUID();
+
+        let conversation = typeof opts.conversation === 'object'
+            ? opts.conversation
+            : await this.conversationsCache.get(conversationId);
+
+        let isNewConversation = false;
+        if (!conversation) {
+            conversa
