@@ -331,4 +331,10 @@ ${botMessage.message}
             id: crypto.randomUUID(),
             parentMessageId,
             role: 'User',
-  
+            message,
+        };
+        conversation.messages.push(userMessage);
+
+        // Doing it this way instead of having each message be a separate element in the array seems to be more reliable,
+        // especially when it comes to keeping the AI in character. It also seems to improve coherency and context retention.
+        const { prompt: payload, con
