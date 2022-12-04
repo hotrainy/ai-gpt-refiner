@@ -337,4 +337,15 @@ ${botMessage.message}
 
         // Doing it this way instead of having each message be a separate element in the array seems to be more reliable,
         // especially when it comes to keeping the AI in character. It also seems to improve coherency and context retention.
-        const { prompt: payload, con
+        const { prompt: payload, context } = await this.buildPrompt(
+            conversation.messages,
+            userMessage.id,
+            {
+                isChatGptModel: this.isChatGptModel,
+                promptPrefix: opts.promptPrefix,
+            },
+        );
+
+        if (this.options.keepNecessaryMessagesOnly) {
+            conversation.messages = context;
+ 
