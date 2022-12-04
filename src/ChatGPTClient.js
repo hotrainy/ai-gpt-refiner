@@ -318,4 +318,17 @@ ${botMessage.message}
 
         let isNewConversation = false;
         if (!conversation) {
-            conversa
+            conversation = {
+                messages: [],
+                createdAt: Date.now(),
+            };
+            isNewConversation = true;
+        }
+
+        const shouldGenerateTitle = opts.shouldGenerateTitle && isNewConversation;
+
+        const userMessage = {
+            id: crypto.randomUUID(),
+            parentMessageId,
+            role: 'User',
+  
