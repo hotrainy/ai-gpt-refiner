@@ -348,4 +348,15 @@ ${botMessage.message}
 
         if (this.options.keepNecessaryMessagesOnly) {
             conversation.messages = context;
- 
+        }
+
+        let reply = '';
+        let result = null;
+        if (typeof opts.onProgress === 'function') {
+            await this.getCompletion(
+                payload,
+                (progressMessage) => {
+                    if (progressMessage === '[DONE]') {
+                        return;
+                    }
+        
