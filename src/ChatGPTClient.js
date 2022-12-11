@@ -365,4 +365,15 @@ ${botMessage.message}
                         return;
                     }
                     if (this.options.debug) {
-                        console.debug(
+                        console.debug(token);
+                    }
+                    if (token === this.endToken) {
+                        return;
+                    }
+                    opts.onProgress(token);
+                    reply += token;
+                },
+                opts.abortController || new AbortController(),
+            );
+        } else {
+           
