@@ -376,4 +376,13 @@ ${botMessage.message}
                 opts.abortController || new AbortController(),
             );
         } else {
-           
+            result = await this.getCompletion(
+                payload,
+                null,
+                opts.abortController || new AbortController(),
+            );
+            if (this.options.debug) {
+                console.debug(JSON.stringify(result));
+            }
+            if (this.isChatGptModel) {
+                reply = result.choi
