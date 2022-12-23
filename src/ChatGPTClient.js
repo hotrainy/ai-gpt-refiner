@@ -385,4 +385,18 @@ ${botMessage.message}
                 console.debug(JSON.stringify(result));
             }
             if (this.isChatGptModel) {
-                reply = result.choi
+                reply = result.choices[0].message.content;
+            } else {
+                reply = result.choices[0].text.replace(this.endToken, '');
+            }
+        }
+
+        // avoids some rendering issues when using the CLI app
+        if (this.options.debug) {
+            console.debug();
+        }
+
+        reply = reply.trim();
+
+        const replyMessage = {
+   
