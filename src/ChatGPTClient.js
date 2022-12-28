@@ -399,4 +399,14 @@ ${botMessage.message}
         reply = reply.trim();
 
         const replyMessage = {
-   
+            id: crypto.randomUUID(),
+            parentMessageId: userMessage.id,
+            role: 'ChatGPT',
+            message: reply,
+        };
+        conversation.messages.push(replyMessage);
+
+        const returnData = {
+            response: replyMessage.message,
+            conversationId,
+            parentMessageId: replyMessage.parentMessa
