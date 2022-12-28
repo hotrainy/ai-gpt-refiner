@@ -409,4 +409,14 @@ ${botMessage.message}
         const returnData = {
             response: replyMessage.message,
             conversationId,
-            parentMessageId: replyMessage.parentMessa
+            parentMessageId: replyMessage.parentMessageId,
+            messageId: replyMessage.id,
+            details: result || {},
+        };
+
+        if (shouldGenerateTitle) {
+            conversation.title = await this.generateTitle(userMessage, replyMessage);
+            returnData.title = conversation.title;
+        }
+
+        await this.conversationsCache.set(conversationId, convers
