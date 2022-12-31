@@ -443,4 +443,12 @@ ${botMessage.message}
                 'en-us',
                 { year: 'numeric', month: 'long', day: 'numeric' },
             );
-            promptPrefix = `${this.startToken}Instr
+            promptPrefix = `${this.startToken}Instructions:\nYou are ChatGPT, a large language model trained by OpenAI. Respond conversationally.\nCurrent date: ${currentDateString}${this.endToken}\n\n`;
+        }
+
+        const promptSuffix = `${this.startToken}${this.chatGptLabel}:\n`; // Prompt ChatGPT to respond.
+
+        const instructionsPayload = {
+            role: 'system',
+            name: 'instructions',
+         
