@@ -431,3 +431,9 @@ ${botMessage.message}
     async buildPrompt(messages, parentMessageId, { isChatGptModel = false, promptPrefix = null }) {
         const orderedMessages = this.constructor.getMessagesForConversation(messages, parentMessageId);
 
+        promptPrefix = (promptPrefix || this.options.promptPrefix || '').trim();
+        if (promptPrefix) {
+            // If the prompt prefix doesn't end with the end token, add it.
+            if (!promptPrefix.endsWith(`${this.endToken}`)) {
+                promptPrefix = `${promptPrefix.trim()}${this.endToken}\n\n`;
+       
