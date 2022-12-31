@@ -419,4 +419,15 @@ ${botMessage.message}
             returnData.title = conversation.title;
         }
 
-        await this.conversationsCache.set(conversationId, convers
+        await this.conversationsCache.set(conversationId, conversation);
+
+        if (this.options.returnConversation) {
+            returnData.conversation = conversation;
+        }
+
+        return returnData;
+    }
+
+    async buildPrompt(messages, parentMessageId, { isChatGptModel = false, promptPrefix = null }) {
+        const orderedMessages = this.constructor.getMessagesForConversation(messages, parentMessageId);
+
