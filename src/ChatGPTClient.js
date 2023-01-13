@@ -451,4 +451,15 @@ ${botMessage.message}
         const instructionsPayload = {
             role: 'system',
             name: 'instructions',
-         
+            content: promptPrefix,
+        };
+
+        const messagePayload = {
+            role: 'system',
+            content: promptSuffix,
+        };
+
+        let currentTokenCount;
+        if (isChatGptModel) {
+            currentTokenCount = this.getTokenCountForMessage(instructionsPayload) + this.getTokenCountForMessage(messagePayload);
+     
