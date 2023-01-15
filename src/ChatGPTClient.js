@@ -462,4 +462,13 @@ ${botMessage.message}
         let currentTokenCount;
         if (isChatGptModel) {
             currentTokenCount = this.getTokenCountForMessage(instructionsPayload) + this.getTokenCountForMessage(messagePayload);
-     
+        } else {
+            currentTokenCount = this.getTokenCount(`${promptPrefix}${promptSuffix}`);
+        }
+        let promptBody = '';
+        const maxTokenCount = this.maxPromptTokens;
+
+        const context = [];
+
+        // Iterate backwards through the messages, adding them to the prompt until we reach the max token count.
+        // Do this wi
