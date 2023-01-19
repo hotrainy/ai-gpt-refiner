@@ -481,4 +481,7 @@ ${botMessage.message}
                 if (promptBody || isChatGptModel) {
                     newPromptBody = `${messageString}${promptBody}`;
                 } else {
-                    // Always insert prompt prefix before the last user messa
+                    // Always insert prompt prefix before the last user message, if not gpt-3.5-turbo.
+                    // This makes the AI obey the prompt instructions better, which is important for custom instructions.
+                    // After a bunch of testing, it doesn't seem to cause the AI any confusion, even if you ask it things
+                   
