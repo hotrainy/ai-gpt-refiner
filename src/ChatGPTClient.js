@@ -492,4 +492,10 @@ ${botMessage.message}
 
                 const tokenCountForMessage = this.getTokenCount(messageString);
                 const newTokenCount = currentTokenCount + tokenCountForMessage;
-          
+                if (newTokenCount > maxTokenCount) {
+                    if (promptBody) {
+                        // This message would put us over the token limit, so don't add it.
+                        return false;
+                    }
+                    // This is the first message, so we can't add it. Just throw an error.
+           
