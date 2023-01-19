@@ -514,4 +514,11 @@ ${botMessage.message}
         const prompt = `${promptBody}${promptSuffix}`;
         if (isChatGptModel) {
             messagePayload.content = prompt;
-            // Add 2 tokens for metadata after al
+            // Add 2 tokens for metadata after all messages have been counted.
+            currentTokenCount += 2;
+        }
+
+        // Use up to `this.maxContextTokens` tokens (prompt + response), but try to leave `this.maxTokens` tokens for the response.
+        this.modelOptions.max_tokens = Math.min(this.maxContextTokens - currentTokenCount, this.maxResponseTokens);
+
+        if (isChatGptModel
