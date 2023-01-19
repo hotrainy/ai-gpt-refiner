@@ -521,4 +521,16 @@ ${botMessage.message}
         // Use up to `this.maxContextTokens` tokens (prompt + response), but try to leave `this.maxTokens` tokens for the response.
         this.modelOptions.max_tokens = Math.min(this.maxContextTokens - currentTokenCount, this.maxResponseTokens);
 
-        if (isChatGptModel
+        if (isChatGptModel) {
+            return { prompt: [instructionsPayload, messagePayload], context };
+        }
+        return { prompt, context };
+    }
+
+    getTokenCount(text) {
+        return this.gptEncoder.encode(text, 'all').length;
+    }
+
+    /**
+     * Algorithm adapted from "6. Counting tokens for chat API calls" of
+     * https://github.com/openai/openai-cookbook/blo
