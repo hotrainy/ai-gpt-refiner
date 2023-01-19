@@ -498,4 +498,9 @@ ${botMessage.message}
                         return false;
                     }
                     // This is the first message, so we can't add it. Just throw an error.
-           
+                    throw new Error(`Prompt is too long. Max token count is ${maxTokenCount}, but prompt is ${newTokenCount} tokens long.`);
+                }
+                promptBody = newPromptBody;
+                currentTokenCount = newTokenCount;
+                // wait for next tick to avoid blocking the event loop
+                aw
