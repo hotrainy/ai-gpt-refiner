@@ -484,4 +484,12 @@ ${botMessage.message}
                     // Always insert prompt prefix before the last user message, if not gpt-3.5-turbo.
                     // This makes the AI obey the prompt instructions better, which is important for custom instructions.
                     // After a bunch of testing, it doesn't seem to cause the AI any confusion, even if you ask it things
-                   
+                    // like "what's the last thing I wrote?".
+                    newPromptBody = `${promptPrefix}${messageString}${promptBody}`;
+                }
+
+                context.unshift(message);
+
+                const tokenCountForMessage = this.getTokenCount(messageString);
+                const newTokenCount = currentTokenCount + tokenCountForMessage;
+          
