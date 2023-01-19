@@ -503,4 +503,15 @@ ${botMessage.message}
                 promptBody = newPromptBody;
                 currentTokenCount = newTokenCount;
                 // wait for next tick to avoid blocking the event loop
-                aw
+                await new Promise(resolve => setImmediate(resolve));
+                return buildPromptBody();
+            }
+            return true;
+        };
+
+        await buildPromptBody();
+
+        const prompt = `${promptBody}${promptSuffix}`;
+        if (isChatGptModel) {
+            messagePayload.content = prompt;
+            // Add 2 tokens for metadata after al
