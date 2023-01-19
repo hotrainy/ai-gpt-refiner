@@ -471,4 +471,9 @@ ${botMessage.message}
         const context = [];
 
         // Iterate backwards through the messages, adding them to the prompt until we reach the max token count.
-        // Do this wi
+        // Do this within a recursive async function so that it doesn't block the event loop for too long.
+        const buildPromptBody = async () => {
+            if (currentTokenCount < maxTokenCount && orderedMessages.length > 0) {
+                const message = orderedMessages.pop();
+                const roleLabel = message.role === 'User' ? this.userLabel : this.chatGptLabel;
+                const mess
