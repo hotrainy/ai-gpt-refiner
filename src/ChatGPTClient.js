@@ -476,4 +476,9 @@ ${botMessage.message}
             if (currentTokenCount < maxTokenCount && orderedMessages.length > 0) {
                 const message = orderedMessages.pop();
                 const roleLabel = message.role === 'User' ? this.userLabel : this.chatGptLabel;
-                const mess
+                const messageString = `${this.startToken}${roleLabel}:\n${message.message}${this.endToken}\n`;
+                let newPromptBody;
+                if (promptBody || isChatGptModel) {
+                    newPromptBody = `${messageString}${promptBody}`;
+                } else {
+                    // Always insert prompt prefix before the last user messa
