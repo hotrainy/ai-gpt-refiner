@@ -533,4 +533,13 @@ ${botMessage.message}
 
     /**
      * Algorithm adapted from "6. Counting tokens for chat API calls" of
-     * https://github.com/openai/openai-cookbook/blo
+     * https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
+     *
+     * An additional 2 tokens need to be added for metadata after all messages have been counted.
+     *
+     * @param {*} message
+     */
+    getTokenCountForMessage(message) {
+        let tokensPerMessage;
+        let nameAdjustment;
+        if (this.modelOptions.model.startsWith('gpt-4')) {
