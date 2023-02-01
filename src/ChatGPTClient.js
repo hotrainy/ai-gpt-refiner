@@ -543,3 +543,13 @@ ${botMessage.message}
         let tokensPerMessage;
         let nameAdjustment;
         if (this.modelOptions.model.startsWith('gpt-4')) {
+            tokensPerMessage = 3;
+            nameAdjustment = 1;
+        } else {
+            tokensPerMessage = 4;
+            nameAdjustment = -1;
+        }
+
+        // Map each property of the message to the number of tokens it contains
+        const propertyTokenCounts = Object.entries(message).map(([key, value]) => {
+            // Count the number of 
