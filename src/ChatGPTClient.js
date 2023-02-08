@@ -552,4 +552,12 @@ ${botMessage.message}
 
         // Map each property of the message to the number of tokens it contains
         const propertyTokenCounts = Object.entries(message).map(([key, value]) => {
-            // Count the number of 
+            // Count the number of tokens in the property value
+            const numTokens = this.getTokenCount(value);
+
+            // Adjust by `nameAdjustment` tokens if the property key is 'name'
+            const adjustment = (key === 'name') ? nameAdjustment : 0;
+            return numTokens + adjustment;
+        });
+
+        // Sum the number of tokens in all properties and 
