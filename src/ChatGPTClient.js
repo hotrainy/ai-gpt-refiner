@@ -560,4 +560,10 @@ ${botMessage.message}
             return numTokens + adjustment;
         });
 
-        // Sum the number of tokens in all properties and 
+        // Sum the number of tokens in all properties and add `tokensPerMessage` for metadata
+        return propertyTokenCounts.reduce((a, b) => a + b, tokensPerMessage);
+    }
+
+    /**
+     * Iterate through messages, building an array based on the parentMessageId.
+     * Each message has an id and a parentMessageId. The parentMessageId is the id of the message that this message is
