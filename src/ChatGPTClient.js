@@ -574,4 +574,12 @@ ${botMessage.message}
     static getMessagesForConversation(messages, parentMessageId) {
         const orderedMessages = [];
         let currentMessageId = parentMessageId;
-        
+        while (currentMessageId) {
+            // eslint-disable-next-line no-loop-func
+            const message = messages.find(m => m.id === currentMessageId);
+            if (!message) {
+                break;
+            }
+            orderedMessages.unshift(message);
+            currentMessageId = message.parentMessageId;
+     
