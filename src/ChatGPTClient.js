@@ -582,4 +582,8 @@ ${botMessage.message}
             }
             orderedMessages.unshift(message);
             currentMessageId = message.parentMessageId;
-     
+        }
+
+        return orderedMessages;
+    }
+}
